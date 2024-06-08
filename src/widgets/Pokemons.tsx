@@ -4,19 +4,19 @@ import sryles from './UI.module.css'
 
 
 export default function Pokemons() {
-    const {pokemons, fetchRequest, imageRequest} = usePokemonsStore()
+    const {pokemons, fetchRequest} = usePokemonsStore()
 
     useEffect(() => {
         fetchRequest()
-    }, [fetchRequest])
+    }, [])
 
     return (
         <>
             <div className={sryles.main}>
                 {pokemons.map((item) => (
-                    <div key={item.name} className={sryles.frame}>
+                    <div key={item.id} className={sryles.frame}>
+                        <img src={item.back_default} alt="art" />
                         <span className={sryles.name}>{item.name}</span>
-                        <img src={imageRequest} alt="art" className={sryles.art}/>
                     </div>
                 ))}
             </div>

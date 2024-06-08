@@ -3,28 +3,30 @@ import axios from "axios";
 
 
 interface InitialState {
+    id: number;
     name: string;
-    url: string
+    back_default: string
 }
 
 
 interface Request {
     pokemons: InitialState[],
     fetchRequest: () => Promise<void>
-    imageRequest: (id: any) => void
 }
 
 
 export const usePokemonsStore = create<Request>((set) => ({
     pokemons: [],
     fetchRequest: async () => {
-        const request = await axios.get('https://pokeapi.co/api/v2/pokemon');
-        const pokemons = request.data.results;
-        set({ pokemons });
-    },
-    imageRequest: async (id: any) => {
-        const request = await axios.get(`https://pokeapi.co/api/v2/pokemon-form/${id}/`);
-        const pokemons = request.data.results;
-        set({ pokemons });
-    }
+            const request = await axios.get(`https://pokeapi.co/api/v2/pokemon`)
+            const pokemonData = await Promise.all(request.data.results.map(async (pokemon: any) => {
+                const pokemonDetail = await axios.get(pokemon.url)
+                return {
+                    id: pokemonDetail.data.id,
+                    name: pokemonDetail.data.name,
+                    back_default: pokemonDetail.data.sprites.back_default
+                }
+            }))
+            set({ pokemons: pokemonData })
+    } 
 }));
