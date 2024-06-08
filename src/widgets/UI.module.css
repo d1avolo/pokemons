@@ -1,0 +1,32 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background: #FCEEC9;
+    padding: 20px;
+}
+
+.frame {
+    box-sizing: border-box;
+    display: flex;
+    /* max-width: 900px !important; */
+    width: 300px;
+    height: 79px;
+    background: #9EDEF9;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 3px 5px #000;
+    border-radius: 10px;
+}
+
+.name {
+    color: #112734;
+    font-family: sans-serif;
+    font-size: 16px;
+    margin: 0;
+}
+
+/* .art {
+    width: 50px;
+    height: 50px;
+} */
